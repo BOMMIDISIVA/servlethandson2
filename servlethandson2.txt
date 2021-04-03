@@ -1,0 +1,460 @@
+->4th
+
+
+
+//FirstServlet
+
+
+import java.io.IOException;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class FirstServlet
+ */
+public class FirstServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public FirstServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher rd=request.getRequestDispatcher("SecondServlet");
+		rd.forward(request,response);	
+	}
+	}
+
+
+
+SecondServlet
+
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class SecondServlet
+ */
+public class SecondServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public SecondServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("Text/html");
+		PrintWriter pw=response.getWriter();
+		String name=request.getParameter("uname");
+		pw.println(" welcome "+name+"!!!!");
+	}
+}
+
+
+Index.html
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="FirstServlet"method="get">
+username:<input type="text"name="uname"><br><br>
+<input type="submit"value="submit"><br><br>
+</form>
+</body>
+</html>
+
+
+
+->2nd
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="http://localhost:8080/Registration">
+First Name:<input type="text" name="firstname"><br/>
+Last Name:<input type="text" name="lastname"><br/>
+Address:<input type="text" name="address"><br/>
+Email ID:<input type="text" name="emailid"><br/>
+City:<input type="text" name="city"><br/>
+State:<input type="text" name="state"><br/>
+Pet Name:<input type="text" name="petname"><br/>
+Phone Number:<input type="text" name="phonenumber"><br/>
+Pet Type:<input type="text" name="pettype"><br/>
+Pets Age:<input type="text" name="petsage"><br/>
+<input type="Submit" value="submit">
+</form>
+</body>
+</html>
+
+
+RegistractionServlet
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class Registration
+ */
+@WebServlet("/RegistrationServlet")
+public class RegistrationServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public RegistrationServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html");
+		PrintWriter pw=response.getWriter();
+		String fname=request.getParameter("firstname");
+		request.setAttribute("firstname", fname);
+		String lname=request.getParameter("lastname");
+		request.setAttribute("lastname", lname);
+		String addr=request.getParameter("firstname");
+		request.setAttribute("address", addr);
+		String emailid=request.getParameter("emailid");
+		request.setAttribute("emailid", emailid);
+		String city=request.getParameter("city");
+		request.setAttribute("city", city);
+		String state=request.getParameter("state");
+		request.setAttribute("state", state);
+		String petname=request.getParameter("petname");
+		request.setAttribute("petname", petname);
+		String phonenumber=request.getParameter("phonenumber");
+		request.setAttribute("phonenumber", phonenumber);
+		String pettype=request.getParameter("pettype");
+		request.setAttribute("pettype", pettype);
+		String petsage=request.getParameter("petage");
+		request.setAttribute("petage", petsage);
+		
+		System.out.println("First Name: "+fname);
+		System.out.println("Last Name: "+lname);
+		System.out.println("Address: "+addr);
+		System.out.println("Email ID: "+emailid);
+		System.out.println("City: "+city);
+		System.out.println("State: "+state);
+		System.out.println("Pet Name: "+petname);
+		System.out.println("Phone Number: "+phonenumber);
+		System.out.println("Pet Type: "+pettype);
+		System.out.println("Pets Age: "+petsage);
+		
+		pw.println("First Name: "+request.getAttribute("firstname")+"<br/>");
+		pw.println("Last Name: "+request.getAttribute("lastname")+"");
+		pw.println("Address: "+request.getAttribute("address")+"<br/>");
+		pw.println("Email ID: "+request.getAttribute("emailid")+"<br/>");
+		pw.println("City: "+request.getAttribute("city")+"<br/>");
+		pw.println("State: "+request.getAttribute("state")+"<br/>");
+		pw.println("Pet Name: "+request.getAttribute("petname")+"<br/>");
+		pw.println("Phone Number: "+request.getAttribute("phonenumber")+"<br/>");
+		pw.println("Pet Type: "+request.getAttribute("pettype")+"<br/>");
+		pw.println("Pets Age: "+request.getAttribute("petsage")+"<br/>");
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	}
+
+}
+
+
+->3
+servletloginprogram
+
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class LoginServlet
+ */
+public class LoginServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public LoginServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html");
+		PrintWriter pw=response.getWriter();
+		String username=request.getParameter("username");
+		String password=request.getParameter("password");
+		pw.println(username+"<br/>");
+		pw.println(password+"<br/>");
+		if(username=="admin" && password=="abcd1234") {
+			RequestDispatcher rd=request.getRequestDispatcher("/Success.html");
+			rd.forward(request, response);			
+		}
+		else {
+			RequestDispatcher rd=request.getRequestDispatcher("/Fail.html");
+			rd.forward(request, response);	
+		}
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}
+
+1-login.html
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>login page</title>
+</head>
+<body>
+<form action="http://localhost:8080/ServletHandson/LoginServlet">
+UserName:<input type="text" name="username"><br/>
+Password:<input type="text" name="password"><br/>
+<input type="submit" value="SignIn">
+</form>
+</body>
+</html>
+
+2-success.html
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<p>Success</p>
+</body>
+</html>
+
+
+
+3-Fail.html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<p>Fail</p>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class PetServlet
+ */
+public class PetServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+    /**
+     * Default constructor. 
+     */
+    public PetServlet() {
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html");
+		String sname=request.getParameter("username");
+		String lastname=request.getParameter("lastname");
+	    String addres=request.getParameter("addres");
+	    String email=request.getParameter("email");
+	   String city=request.getParameter("city");
+		String petname=request.getParameter("petname");
+		long phoneno=Long.parseLong(request.getParameter("phone"));
+		String pettype=request.getParameter("pettype");
+		int petsage=Integer.parseInt(request.getParameter("petsage"));
+		
+	    PrintWriter out=response.getWriter();
+	    out.println("<html><body style=\"background-color:powderblue;\">");
+	    out.println(""+"<b>Username is :</b>"+""+sname);
+	    out.println("<br><br>");
+	    out.println(""+"<b>Lastname is :</b>"+""+lastname);
+	    out.println("<br><br>");
+	    out.println(""+"<b>Addres is :</b>"+""+addres);
+	    out.println("<br><br>");
+	    out.println(""+"<b>Email is :</b>"+""+email);
+	    out.println("<br><br>"); 
+	    out.println(""+"<b>City is :</b>"+""+city);
+	    out.println("<br><br>");
+	    out.println(""+"<b>PetName is :</b>"+""+petname);
+	    out.println("<br><br>");  
+	    out.println(""+"<b>Ponenumber is :</b>"+""+phoneno);
+	    out.println("<br><br>");
+	    out.println(""+"<b>Pettype is :</b>"+""+pettype);
+	    out.println("<br><br>");
+	    out.println(""+"<b>Pets Ageis :</b>"+""+petsage);
+	    	}
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<center>
+<table>
+<form action="PetServlet" method="get">
+<tr>
+<td><center><b>Pet Registration Form<b> </center></td>
+</tr>
+<tr>
+<td>FirstName:<input type="text" name="username"></td><br>
+</tr>
+<tr>
+<td>LastName:<input type="text" name="lastname"></td><br><br>
+</tr>
+<tr>
+<td>Address:<input type="textarea"rows="5"cols="50" name="addres"></td>
+</tr>
+<tr>
+<td>Email ID:<input type="email"name="email"></td>
+</tr>
+<tr>
+<td>City:<input type="text"name="city"></td>
+</tr>
+<tr>
+<td>State:<input type="text"name="state"></td>
+</tr>
+<tr>
+<td>Pet Name:<input type="text"name="petname"></td>
+</tr>
+<tr>
+<td>Phone Number:<input type="number"name="phone"></td>
+</tr>
+<tr>
+<td>Pet Type:<input type="text"name="pettype"></td>
+</tr>
+<tr>
+<td>Pets Age:<input type="number"name="petsage"></td>
+</tr>
+</table>
+<input type="submit"value="submit">
+</form>
+</html>
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>Pet Registration Form</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>PetServlet</display-name>
+    <servlet-name>PetServlet</servlet-name>
+    <servlet-class>PetServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PetServlet</servlet-name>
+    <url-pattern>/PetServlet</url-pattern>
+  </servlet-mapping>
+</web-app>
